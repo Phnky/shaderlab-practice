@@ -23,7 +23,7 @@ Shader "Phunky/Basic/Unlit" {
                 //declare variables in struct
                 //'type' 'name' : 'value';
                 //position of vertices
-                float4 vertex : POSITION
+                float4 vertex : POSITION;
                 //UV Coordinates
                 float2 uv : TEXCOORD0;
             };
