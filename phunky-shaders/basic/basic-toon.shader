@@ -4,6 +4,7 @@ Shader "Phunky/Basic/Toon-Lit"{
         //_Name ("Name in Material Settings", input) = (default settings) {}
         _Color ("Main Color", Color) = (0.5,0.5,0.5,1){}
         _MainTex ("Main Texture". 2D) = "white" {}
+        _Noisetex ("Noise", 2D) = "white" {}
         _Ramp ("Ramp", 2D) = "gray" {}
     }
 
@@ -16,6 +17,7 @@ Shader "Phunky/Basic/Toon-Lit"{
         //write properties again so that the shader can use them in functions
         // sampler2D for textures, float4 for colors(rgb and transparency)
         sampler2D _MainTex;
+        sampler2D _NoiseTex;
         float4 _Color;
         
         //Struct input is where Unity takes the meshes uv sets.
