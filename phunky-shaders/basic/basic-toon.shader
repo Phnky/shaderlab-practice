@@ -4,7 +4,7 @@ Shader "Phunky/Basic/Toon-Lit"{
         //_Name ("Name in Material Settings", input) = (default settings) {}
         _Color ("Main Color", Color) = (0.5,0.5,0.5,1){}
         _MainTex ("Main Texture". 2D) = "white" {}
-        _Noisetex ("Noise", 2D) = "white" {}
+        _NoiseTex ("Noise", 2D) = "white" {}
         _Ramp ("Ramp", 2D) = "gray" {}
     }
 
@@ -33,8 +33,12 @@ Shader "Phunky/Basic/Toon-Lit"{
             //c is the MainTexture projected over the first UV set, multiplied by the Main Color we choose in the material settings
             half4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
 
+            //a copy of the line for main texture modified for noise
+            half4 n = tex2D(_NoiseTex, IN.uv_MainTex) * _Color;
+
             //set abledo(diffuse) to the c value, making the texture show up on the model
-            o.Abledo = c.rgb;
+            //multiplied with n to add noise.
+            o.Abledo = c.rgb * n.rgb;
 
             //deals with transparency
             o.Alpha = c.a;
