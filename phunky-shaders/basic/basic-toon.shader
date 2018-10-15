@@ -5,6 +5,7 @@ Shader "Phunky/Basic/Toon-Lit"{
         _Color ("Main Color", Color) = (0.5,0.5,0.5,1){}
         _MainTex ("Main Texture". 2D) = "white" {}
         _NoiseTex ("Noise", 2D) = "white" {}
+        _NoiseColor ("Noise Color", 2D) = "white" {}
         _Ramp ("Ramp", 2D) = "gray" {}
     }
 
@@ -19,6 +20,7 @@ Shader "Phunky/Basic/Toon-Lit"{
         sampler2D _MainTex;
         sampler2D _NoiseTex;
         float4 _Color;
+        float4 _NoiseColor;
         
         //Struct input is where Unity takes the meshes uv sets.
         //Take the uv set (uv_) for the base main texture (MainTex) and put into a texture interpolator (TEXCOORD0)
@@ -41,7 +43,12 @@ Shader "Phunky/Basic/Toon-Lit"{
 
             //set abledo(diffuse) to the c value, making the texture show up on the model
             //multiplied with n to add noise.
-            o.Abledo = c.rgb * n.rgb;
+            o.Abledo = c.rgb;
+
+            //check if the value of the noise is greater than 0.5, if so set the albedo to be the new color.
+            if(n.r>0.5){
+                o.Albedo = _Color2;
+            }
 
             //deals with transparency
             o.Alpha = c.a;
