@@ -26,6 +26,9 @@ Shader "Phunky/Basic/Toon-Lit"{
             float2 uv_MainTex : TEXCOORD0;
             //To use a second uv set:
             // float2 uv2_SecondTex : TEXCOORD1;
+
+            //get worldspace position
+            float3 worldPos;
         };
 
         void surf (Input IN, inout SurfaceOutput o){
@@ -34,7 +37,7 @@ Shader "Phunky/Basic/Toon-Lit"{
             half4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
 
             //a copy of the line for main texture modified for noise
-            half4 n = tex2D(_NoiseTex, IN.uv_MainTex) * _Color;
+            half4 n = tex2D(_NoiseTex, IN.worldPos) * _Color;
 
             //set abledo(diffuse) to the c value, making the texture show up on the model
             //multiplied with n to add noise.
